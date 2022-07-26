@@ -17,13 +17,13 @@
           <a href="/admin/addproduct">Admin - Add a new product</a>
         </li>
         <li>
-          <a href="/admin/product-list">Admin - Product List</a>
+          <a href="/admin/products">Admin - Product List</a>
         </li>
       </ul>
     </nav>
   </header>
   <main class="main container">
-    <h1 class="title add-product">Welcome to the shop's main page!</h1>
+    <h1 class="title add-product"><%= pageTitle %> </h1>
     <div class="products--container">
       <% if (products.length > 0) { %>
           <% for (let product of products) { %> 
@@ -39,6 +39,5 @@
       <% } %>   
     </div>
   </main>
-
 </body>
 </html>

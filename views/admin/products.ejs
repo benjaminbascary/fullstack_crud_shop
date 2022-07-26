@@ -23,13 +23,22 @@
     </nav>
   </header>
   <main class="main container">
-    <h1 class="title add-product">Add a new item to the shop!</h1>
-    <form action="/admin/addproduct" method="POST">
-      <input type="text" name="product" placeholder="Product's name...">
-      <input type="number" name="price" placeholder="$">
-      <button type="submit">Add!</button>
-    </form>
+    <h1 class="title add-product"><%= pageTitle %></h1>
+    <div class="products--container">
+      <% if (products.length > 0) { %>
+          <% for (let product of products) { %> 
+            <div class="single--product--container">
+              <p>Title: <%= product.name %></p>
+              <p>Price: <%= product.price %> </p>
+            </div>
+          <% } %> 
+      <% } else { %>
+        <div class="products--container">
+          <h2>Oops! Looks like there is no products to be shown! :(</h2>
+        </div>
+      <% } %>   
+    </div>
   </main>
-  
+
 </body>
 </html>
