@@ -18,9 +18,11 @@ const fetchAllProductsFromFile = (callback) => {
 
 
 class Product {
-  constructor(name, price) {
+  constructor(name, price, imageUrl, description) {
     this.name = name;
     this.price = price;
+    this.imageUrl = imageUrl;
+    this.description = description;
   }
 
   saveProduct() {
