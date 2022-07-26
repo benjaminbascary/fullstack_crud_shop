@@ -1,14 +1,18 @@
 const express = require('express');
 const router = express.Router();
-const { getAddProductPageController, postNewProductController } = require('../controllers/products');
+
+// Imports the admin controlers that contains the logic that renders the Add New Product page and to POST a new product into the DB.
+const { 
+  getAddProductPageController, 
+  postNewProductController 
+} = require('../controllers/admin');
 
 
+// Add Product => GET
 router.get('/admin/addproduct', getAddProductPageController);
-
+// Add Product => POST (post new product)
 router.post('/admin/addproduct', postNewProductController);
-
-//router.get('/admin/editproduct', getEditProductPageController);
-
-// router.post('./admin/editproduct', postEditProductController); Por verse
+// Admin products page => GET (yet to finish)
+router.get('admin/products')
 
 module.exports = { router };

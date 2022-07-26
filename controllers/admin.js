@@ -10,11 +10,4 @@ const postNewProductController = (req, res, next) => {
   res.redirect('/');
 }
 
-const getAllProductsController = (req, res, next) => {
-  Product.getProducts(products => {
-    res.render('./shop/productlist', { products: products, pageTitle: 'Shopp' });
-  })
-  
-}
-
-module.exports = { getAddProductPageController, postNewProductController, getAllProductsController };
+module.exports = { getAddProductPageController, postNewProductController };
