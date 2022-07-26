@@ -1,0 +1,44 @@
+<%- include('../partials/head.ejs') %>
+
+<body>
+  <header class="header--container">
+    <nav>
+      <ul class="header--nav--list">
+        <li>
+          <a href="/">Home</a>
+        </li>
+        <li>
+          <a href="/products">Products</a>
+        </li>
+        <li>
+          <a href="/cart">Cart</a>
+        </li>
+        <li>
+          <a href="/admin/addproduct">Admin - Add a new product</a>
+        </li>
+        <li>
+          <a href="/admin/products">Admin - Product List</a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+  <main class="main container">
+    <h1 class="title add-product"><%= pageTitle %></h1>
+    <div class="products--container">
+      <% if (products.length > 0) { %>
+          <% for (let product of products) { %> 
+            <div class="single--product--container">
+              <p>Title: <%= product.name %></p>
+              <p>Price: <%= product.price %> </p>
+            </div>
+          <% } %> 
+      <% } else { %>
+        <div class="products--container">
+          <h2>Oops! Looks like there is no products to be shown! :(</h2>
+        </div>
+      <% } %>   
+    </div>
+  </main>
+
+</body>
+</html>
