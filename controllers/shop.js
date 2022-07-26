@@ -2,7 +2,7 @@ const Product = require('../models/product');
 
 const getAllProductsController = (req, res, next) => {
   Product.getProducts(products => {
-    res.render('./shop/productlist', { products: products, pageTitle: 'Products' });
+    res.render('./shop/productlist', { products: products, pageTitle: 'All products' });
   })
 }
 
@@ -14,4 +14,8 @@ const getIndex = (req, res, next) => {
   })
 }
 
-module.exports = { getAllProductsController, getIndex };
+const getCheckOut = (req, res, next) => {
+  res.render('./shop/checkout', {pageTitle: 'Checkout'})
+}
+
+module.exports = { getAllProductsController, getIndex, getCheckOut };
