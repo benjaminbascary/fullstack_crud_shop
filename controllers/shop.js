@@ -6,16 +6,18 @@ const getAllProductsController = (req, res, next) => {
   })
 }
 
-
 // For the moment this is the same controller as the above, excepts this renders the ./shop/index.ejs view.
-const getIndex = (req, res, next) => {
+const getIndexController = (req, res, next) => {
   Product.getProducts(products => {
     res.render('./shop/index', { products: products, pageTitle: 'Home' });
   })
 }
 
-const getCheckOut = (req, res, next) => {
+const getCheckOutController = (req, res, next) => {
   res.render('./shop/checkout', {pageTitle: 'Checkout'})
 }
 
-module.exports = { getAllProductsController, getIndex, getCheckOut };
+const getCartController = (req, res, next) => {
+  res.render('./shop/cart', {pageTitle: 'Cart' });
+}
+module.exports = { getAllProductsController, getIndexController, getCheckOutController, getCartController };
