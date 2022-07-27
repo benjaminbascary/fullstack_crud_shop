@@ -5,8 +5,11 @@ const getAddProductPageController = (req, res, next) => {
 }
 
 const postNewProductController = (req, res, next) => {
-  const product = new Product(req.body.product, req.body.price);
-  product.saveProduct();
+  
+  const { product, price, imageUrl, description } = req.body;
+
+  const newProduct = new Product(product, price, imageUrl, description);
+  newProduct.saveProduct();
   res.redirect('/');
 }
 

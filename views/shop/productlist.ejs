@@ -28,8 +28,10 @@
       <% if (products.length > 0) { %>
           <% for (let product of products) { %> 
             <div class="single--product--container">
+              <img src="<%= product.imageUrl %>" alt="<%= product.name %>">
               <p>Title: <%= product.name %></p>
               <p>Price: <%= product.price %> </p>
+              <p>Description: <%= product.description %> </p>
             </div>
           <% } %> 
       <% } else { %>
