@@ -1,0 +1,22 @@
+<%- include('../partials/head.ejs') %>
+
+<body>
+  <header class="header--container">
+    <%- include('../partials/navigation.ejs') %> 
+  </header>
+  <main class="main-container">
+    <h1 class="title"><%= pageTitle %> </h1>
+    <div class="single--product--container">
+      <img src="<%= product.imageUrl %> " alt="details">
+      <h2><%= product.name %> </h2>
+      <h1>$ <%= product.price %> </h1>
+      <hr>
+      <p><%= product.description %> </p>
+      <form action="/cart" method="POST">
+        <button type="submit">Add to cart</button>
+        <input type="hidden" name="id" value="<%= product.id %>">
+      </form>
+    </div>
+  </main>
+</body>
+</html>

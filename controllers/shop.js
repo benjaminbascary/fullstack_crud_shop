@@ -9,9 +9,8 @@ const getAllProductsController = (req, res, next) => {
 const getProductController = (req, res, next) => {
   const productId = req.params.id;
   Product.getProductById(productId, (product) => {
-    console.log(product)
+    res.render('./shop/productdetails', {product: product, pageTitle: product.name});
   });
-  res.redirect('/');
 }
 
 // For the moment this is the same controller as the above, excepts this renders the ./shop/index.ejs view.
