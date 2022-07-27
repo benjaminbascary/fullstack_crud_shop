@@ -2,27 +2,9 @@
 
 <body>
   <header class="header--container">
-    <nav>
-      <ul class="header--nav--list">
-        <li>
-          <a href="/">Home</a>
-        </li>
-        <li>
-          <a href="/products">Products</a>
-        </li>
-        <li>
-          <a href="/cart">Cart</a>
-        </li>
-        <li>
-          <a href="/admin/addproduct">Admin - Add a new product</a>
-        </li>
-        <li>
-          <a href="/admin/products">Admin - Product List</a>
-        </li>
-      </ul>
-    </nav>
+    <%- include('../partials/navigation.ejs') %> 
   </header>
-  <main class="main container">
+  <main class="main-container">
     <h1 class="title add-product"><%= pageTitle %> </h1>
     <div class="products--container">
       <% if (products.length > 0) { %>
