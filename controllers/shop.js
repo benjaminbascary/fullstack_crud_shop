@@ -8,7 +8,9 @@ const getAllProductsController = (req, res, next) => {
 
 const getProductController = (req, res, next) => {
   const productId = req.params.id;
-  console.log(productId);
+  Product.getProductById(productId, (product) => {
+    console.log(product)
+  });
   res.redirect('/');
 }
 
