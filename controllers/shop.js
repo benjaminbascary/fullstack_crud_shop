@@ -14,10 +14,20 @@ const getIndexController = (req, res, next) => {
 }
 
 const getCheckOutController = (req, res, next) => {
-  res.render('./shop/checkout', {pageTitle: 'Checkout'})
+  res.render('./shop/checkout', { pageTitle: 'Checkout' })
 }
 
 const getCartController = (req, res, next) => {
-  res.render('./shop/cart', {pageTitle: 'Cart' });
+  res.render('./shop/cart', { pageTitle: 'Cart' });
 }
-module.exports = { getAllProductsController, getIndexController, getCheckOutController, getCartController };
+
+const getOrdersController = (req, res, next) => {
+  res.render('./shop/orders', { pageTitle: 'Oders'})
+}
+module.exports = { 
+  getAllProductsController, 
+  getIndexController, 
+  getCheckOutController, 
+  getCartController,
+  getOrdersController
+};
