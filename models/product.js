@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-
+const checkProperties = require('../utils/propertiesChecker');
 
 const myPath = path.join(path.dirname(require.main.filename), 'db', 'products.json');
 
@@ -32,10 +32,14 @@ class Product {
       if (!err) {
         products = JSON.parse(fileContent);
       }
-      products.push(this);
-      fs.writeFile(myPath, JSON.stringify(products), (err) => {
-        console.log(err);
+
+      if (checkProperties(this)) {
+        products.push(this);
+        fs.writeFile(myPath, JSON.stringify(products), (err) => {
+          console.log(err);
       });
+      }
+
     })
   }
 

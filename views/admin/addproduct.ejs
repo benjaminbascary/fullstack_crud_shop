@@ -25,9 +25,23 @@
   <main class="main container">
     <h1 class="title add-product">Add a new item to the shop!</h1>
     <form action="/admin/addproduct" method="POST">
-      <input type="text" name="product" placeholder="Product's name...">
-      <input type="number" name="price" placeholder="$">
-      <button type="submit">Add!</button>
+      <div class="form-control">
+        <label for="product">Product</label>
+        <input type="text" name="product" placeholder="Product's name...">
+      </div>
+      <div class="form-control">
+        <label for="price">Price</label>
+        <input type="number" name="price" placeholder="$">
+      </div>
+      <div>
+        <label for="imageUrl">Image URL</label>
+        <input type="text" name="imageUrl" placeholder="URL">
+      </div>
+      <div>
+        <label for="description">Description</label>
+        <textarea rows="5" type="text" name="description" placeholder="Description"></textarea>
+      </div>
+      <button type="submit">Add</button>
     </form>
   </main>
   
