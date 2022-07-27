@@ -15,6 +15,7 @@
               <p>Description: <%= product.description %> </p>
               <p>Price: <%= product.price %> </p>
               <div>
+                <a href="/products/<%= product.id %>">Details</a>
                 <form action="/cart/id" method="POST">
                   <button type="submit">Add to cart</button>
                 </form>

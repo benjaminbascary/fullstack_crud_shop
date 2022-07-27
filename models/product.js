@@ -26,6 +26,7 @@ class Product {
   }
 
   saveProduct() {
+    this.id = Math.random().toString();
     // we pass root directory name, name of the folder, and name of the file
     fs.readFile(myPath, (err, fileContent) => {
       let products = [];
