@@ -6,6 +6,12 @@ const getAllProductsController = (req, res, next) => {
   })
 }
 
+const getProductController = (req, res, next) => {
+  const productId = req.params.id;
+  console.log(productId);
+  res.redirect('/');
+}
+
 // For the moment this is the same controller as the above, excepts this renders the ./shop/index.ejs view.
 const getIndexController = (req, res, next) => {
   Product.getProducts(products => {
@@ -24,10 +30,12 @@ const getCartController = (req, res, next) => {
 const getOrdersController = (req, res, next) => {
   res.render('./shop/orders', { pageTitle: 'Oders'})
 }
+
 module.exports = { 
   getAllProductsController, 
   getIndexController, 
   getCheckOutController, 
   getCartController,
-  getOrdersController
+  getOrdersController,
+  getProductController
 };

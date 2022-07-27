@@ -6,11 +6,13 @@ const {
   getAllProductsController, 
   getCheckOutController, 
   getCartController,
-  getOrdersController
+  getOrdersController,
+  getProductController
 } = require('../controllers/shop');
 
 router.get('/', getIndexController);
 router.get('/products', getAllProductsController);
+router.get('/products/:id', getProductController);
 router.get('/checkout', getCheckOutController);
 router.get('/cart', getCartController);
 router.get('/orders', getOrdersController);
