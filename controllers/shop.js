@@ -28,9 +28,16 @@ const getCartController = (req, res, next) => {
   res.render('./shop/cart', { pageTitle: 'Cart' });
 }
 
+const postCartController = (req, res, next) => {
+  const id = req.body.id;
+  res.redirect('/cart');
+}
+
 const getOrdersController = (req, res, next) => {
   res.render('./shop/orders', { pageTitle: 'Oders'})
 }
+
+
 
 module.exports = { 
   getAllProductsController, 
@@ -38,5 +45,6 @@ module.exports = {
   getCheckOutController, 
   getCartController,
   getOrdersController,
-  getProductController
+  getProductController,
+  postCartController
 };
