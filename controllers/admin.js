@@ -41,10 +41,26 @@ const postEditProductController = (req, res, next) => {
   res.redirect('/admin/products');
 }
 
+const deleteProductController = (req, res, next) => {
+  const id = req.params.id;
+  console.log(id);
+
+  async function deleteRequestedProduct() {
+    await Product.deleteProductById(id);
+  }
+
+  deleteRequestedProduct();
+  res.redirect('/');
+}
+
+
+
+
 module.exports = { 
   getAddProductPageController, 
   postNewProductController, 
   getAdminProducts, 
   getEditPageController, 
-  postEditProductController 
+  postEditProductController,
+  deleteProductController
 };
