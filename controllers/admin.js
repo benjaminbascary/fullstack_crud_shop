@@ -34,7 +34,10 @@ const postEditProductController = (req, res, next) => {
 
 }
 
-  
-  
-
-module.exports = { getAddProductPageController, postNewProductController, getAdminProducts, getEditPageController, postEditProductController };
+module.exports = { 
+  getAddProductPageController, 
+  postNewProductController, 
+  getAdminProducts, 
+  getEditPageController, 
+  postEditProductController 
+};

@@ -1,12 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= pageTitle %></title>
-  <link rel="stylesheet" href="../../public/css/style.css">
-</head>
+<%- include('../partials/head.ejs') %>
+
 <body>
   <header class="header--container">
     <%- include('../partials/navigation.ejs') %> 
@@ -28,7 +21,7 @@
       </div>
       <div>
         <label for="description">Description</label>
-        <textarea rows="5" type="text" name="description" value="<%= product.description %>">
+        <textarea rows="5" type="text" name="description">
           <%= product.description %> 
         </textarea>
       </div>
