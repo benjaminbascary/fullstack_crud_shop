@@ -1,11 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const p = path.join(
-  path.dirname(require.main.filename),
-  'db',
-  'cart.json'
-);
+const p = path.join(path.dirname(require.main.filename), 'db', 'cart.json');
 
 class Cart {
   static addProduct(id, productPrice) {
