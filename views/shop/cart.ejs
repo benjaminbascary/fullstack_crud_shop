@@ -9,6 +9,22 @@
     <button>
       <a href="./checkout">Confirm and checkout!</a>
     </button>
+    <div class="cart--products--container">
+      <% if (products.length > 0) { %>
+          <% for (let product of products) { %>
+            <div>
+              <p>SKU: <%= product.id %></p>
+              <p>Qty: <%= product.qty %> </p>
+            </div>
+            <hr>
+          <% } %>
+          <h1>Total $ <%= totalPrice %> </h1>
+      <% } else { %>
+        <div class="products--container">
+          <h2>No products in database</h2>
+        </div>
+      <% } %>   
+    </div>
   </main>
 </body>
 </html>

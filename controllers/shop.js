@@ -29,7 +29,10 @@ const getCheckOutController = (req, res, next) => {
 }
 
 const getCartController = (req, res, next) => {
-  res.render('./shop/cart', { pageTitle: 'Cart' });
+  Cart.getAllProductsFromCart(products => {
+    res.render('./shop/cart', { pageTitle: 'Your cart', products: products.products, totalPrice: products.totalPrice });
+  })
+
 }
 
 const postCartController = (req, res, next) => {

@@ -3,6 +3,15 @@ const path = require('path');
 
 const p = path.join(path.dirname(require.main.filename), 'db', 'cart.json');
 
+const fetchAllProductsFromFile = (callback) => {
+  fs.readFile(p, (err, fileContent) => {
+    if (err) {
+      return callback([]);
+    }
+    callback(JSON.parse(fileContent));
+  })
+}
+
 class Cart {
   static addProduct(id, productPrice) {
     // Fetch the previous cart
@@ -10,7 +19,7 @@ class Cart {
       let cart = { products: [], totalPrice: 0 };
       if (!err) {
         cart = JSON.parse(fileContent);
-      }
+      };
       // Analyze the cart => Find existing product
       const existingProductIndex = cart.products.findIndex(
         prod => prod.id === id
@@ -32,6 +41,10 @@ class Cart {
         console.log(err);
       });
     });
+  }
+
+  static getAllProductsFromCart(callback) {
+    fetchAllProductsFromFile(callback);
   }
 };
 
