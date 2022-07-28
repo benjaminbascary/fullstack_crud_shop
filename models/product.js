@@ -74,6 +74,22 @@ class Product {
     
   }
 
+  static async deleteProductById(id) {
+    fs.readFile(myPath, (err, fileContent) => {
+      let products;
+      if (!err) {
+        products = JSON.parse(fileContent);
+      }
+
+      const newProducts = products.filter(eachProduct => eachProduct.id !== id)
+
+      fs.writeFile(myPath, JSON.stringify(newProducts), (err) => {
+          console.log(err);
+      });
+
+    })
+  }
+
 }
 
 module.exports = Product;
