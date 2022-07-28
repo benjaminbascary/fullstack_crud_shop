@@ -78,6 +78,10 @@ body {
   margin: 10px 20px
 }
 
+.single--product--container hr {
+  width: 90%;
+}
+
 .single--product--container button:hover {
   background-color: rgb(31, 97, 75);
   color: white;

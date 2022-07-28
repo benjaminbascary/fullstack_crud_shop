@@ -15,8 +15,10 @@
               <p>Description: <%= product.description %> </p>
               <p>Price: <%= product.price %> </p>
               <div>
-                <form action="/cart/id" method="POST">
+                <a href="/products/<%= product.id %>">Details</a>
+                <form action="/cart" method="POST">
                   <button type="submit">Add to cart</button>
+                  <input type="hidden" name="id" value="<%= product.id %>">
                 </form>
               </div>
             </div>

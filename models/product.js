@@ -26,6 +26,7 @@ class Product {
   }
 
   saveProduct() {
+    this.id = Math.random().toString();
     // we pass root directory name, name of the folder, and name of the file
     fs.readFile(myPath, (err, fileContent) => {
       let products = [];
@@ -46,6 +47,14 @@ class Product {
   //static hace que pueda llamar al metodo de la clase sin tener que instanciar un objecto con 'new'
   static getProducts(callback) {
     fetchAllProductsFromFile(callback);
+  }
+
+  static getProductById(id, callback) {
+    fetchAllProductsFromFile(products => {
+      const product = products.find(p => p.id === id);
+      callback(product);
+    });
+    
   }
 
 }
