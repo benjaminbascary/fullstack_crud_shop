@@ -31,7 +31,14 @@ const getEditPageController = (req, res, next) => {
 }
 
 const postEditProductController = (req, res, next) => {
-
+  const product = req.body;
+  const id = product.id;
+  
+  async function loadEditedProduct() {
+    await Product.saveEditedProduct(id, product);
+  }
+  loadEditedProduct();
+  res.redirect('/');
 }
 
 module.exports = { 

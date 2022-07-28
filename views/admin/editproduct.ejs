@@ -9,7 +9,7 @@
     <form action="/admin/editproduct" method="POST">
       <div class="form-control">
         <label for="product">Product</label>
-        <input type="text" name="product" value="<%= product.name %>">
+        <input type="text" name="name" value="<%= product.name %>">
       </div>
       <div class="form-control">
         <label for="price">Price</label>
@@ -21,10 +21,11 @@
       </div>
       <div>
         <label for="description">Description</label>
-        <textarea rows="5" type="text" name="description">
+        <textarea rows="5" type="text" name="description" value="<%= product.description %> ">
           <%= product.description %> 
         </textarea>
       </div>
+      <input type="hidden" value="<%= product.id %>" name="id">
       <button type="submit">EDIT</button>
     </form>
   </main>

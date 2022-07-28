@@ -6,7 +6,6 @@ const myPath = path.join(path.dirname(require.main.filename), 'db', 'products.js
 
 
 
-
 const fetchAllProductsFromFile = (callback) => {
   fs.readFile(myPath, (err, fileContent) => {
     if (err) {
@@ -40,6 +39,24 @@ class Product {
           console.log(err);
       });
       }
+
+    })
+  }
+
+  static async saveEditedProduct(id, updatedProduct) {
+    fs.readFile(myPath, (err, fileContent) => {
+      let products;
+      if (!err) {
+        products = JSON.parse(fileContent);
+      }
+
+      const targetProductIndex = products.findIndex(prod => prod.id === id);
+      //products[targetProductIndex] = updatedProduct;
+      products[targetProductIndex] = updatedProduct;
+
+      fs.writeFile(myPath, JSON.stringify(products), (err) => {
+          console.log(err);
+      });
 
     })
   }
