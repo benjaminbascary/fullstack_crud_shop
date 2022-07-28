@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= pageTitle %></title>
+  <link rel="stylesheet" href="../../public/css/style.css">
+</head>
+<body>
+  <header class="header--container">
+    <%- include('../partials/navigation.ejs') %> 
+  </header>
+  <main class="main-container">
+    <h1 class="title add-product">Edit product</h1>
+    <form action="/admin/editproduct" method="POST">
+      <div class="form-control">
+        <label for="product">Product</label>
+        <input type="text" name="product" value="<%= product.name %>">
+      </div>
+      <div class="form-control">
+        <label for="price">Price</label>
+        <input type="number" name="price" value="<%= product.price %>" step="0.01">
+      </div>
+      <div>
+        <label for="imageUrl">Image URL</label>
+        <input type="text" name="imageUrl" value="<%= product.imageUrl %>">
+      </div>
+      <div>
+        <label for="description">Description</label>
+        <textarea rows="5" type="text" name="description" value="<%= product.description %>">
+          <%= product.description %> 
+        </textarea>
+      </div>
+      <button type="submit">EDIT</button>
+    </form>
+  </main>
+  
+</body>
+</html>
