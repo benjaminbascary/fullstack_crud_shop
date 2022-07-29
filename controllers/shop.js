@@ -35,14 +35,31 @@ const getCartController = (req, res, next) => {
 
 }
 
+const getFullCartController = () => {
+  
+}
+
 const postCartController = (req, res, next) => {
   const productId = req.body.id;
+  
   Product.getProductById(productId, (product) => {
     console.log({p: productId, pp: product.price})
     Cart.addProduct(productId, product.price);
   });
   res.redirect('/cart');
-  
+}
+
+const postFullCartController = (req, res, next) => {
+  const productId = req.body.id;
+  const fullProduct = req.body.fullProduct;
+  console.log(fullProduct);
+  Product.getProductById(productId, (product) => {
+
+    console.log({id: productId, product: product});
+
+    Cart.addFullProduct(productId, product, product.price);
+  });
+  res.redirect('/cart');
 }
 
 const getOrdersController = (req, res, next) => {
@@ -58,5 +75,6 @@ module.exports = {
   getCartController,
   getOrdersController,
   getProductController,
-  postCartController
+  postCartController,
+  postFullCartController
 };

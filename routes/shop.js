@@ -11,6 +11,7 @@ const {
   getProductController,
   // POST Controllers
   postCartController,
+  postFullCartController
 } = require('../controllers/shop');
 
 router.get('/', getIndexController);
@@ -19,6 +20,10 @@ router.get('/products/:id', getProductController);
 router.get('/checkout', getCheckOutController);
 router.get('/cart', getCartController);
 router.post('/cart', postCartController);
+
+//test route
+router.post('/fullcart', postFullCartController);
+
 router.get('/orders', getOrdersController);
 
 module.exports = router;
