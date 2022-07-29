@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-// Imports the admin controlers that contains the logic that renders the Add New Product page and to POST a new product into the DB.
+// Admin controllers.
 const { 
   getAddProductPageController, 
   postNewProductController, 

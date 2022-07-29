@@ -46,6 +46,25 @@ class Cart {
   static getAllProductsFromCart(callback) {
     fetchAllProductsFromFile(callback);
   }
+
+  static deleteProductFromCart(id, price) {
+    fs.readFile(p, (err, fileContent) => {
+      if (err) {
+        return;
+      }
+
+      const updatedCart = {...JSON.parse(fileContent)}
+      const product = updatedCart.products.findIndex(prod => prod.id === id);
+      const productQty = product.qty;
+      updatedCart.products = updatedCart.products.filter(
+        prod => prod.id !== id
+      );
+      updatedCart.totalPrice = updatedCart.totalPrice - price * productQty;
+      fs.writeFile(p, JSON.stringify(updatedCart), err => {
+        console.log(err);
+      })
+    })
+  }
 };
 
 module.exports = Cart;
