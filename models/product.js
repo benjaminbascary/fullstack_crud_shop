@@ -65,7 +65,7 @@ class Product {
   static getProducts(callback) {
     fetchAllProductsFromFile(callback);
   }
-
+  
   static getProductById(id, callback) {
     fetchAllProductsFromFile(products => {
       const product = products.find(p => p.id === id);
@@ -76,14 +76,14 @@ class Product {
 
   static async deleteProductById(id) {
     fs.readFile(myPath, (err, fileContent) => {
-      let products;
+      let products; //Products that will end in a Products[]
       if (!err) {
         products = JSON.parse(fileContent);
       }
 
-      const newProducts = products.filter(eachProduct => eachProduct.id !== id)
+      const updatedProducts = products.filter(eachProduct => eachProduct.id !== id)
 
-      fs.writeFile(myPath, JSON.stringify(newProducts), (err) => {
+      fs.writeFile(myPath, JSON.stringify(updatedProducts), (err) => {
           console.log(err);
       });
 

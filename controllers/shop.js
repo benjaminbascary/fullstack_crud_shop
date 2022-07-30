@@ -17,7 +17,6 @@ const getProductController = (req, res, next) => {
   });
 }
 
-// For the moment this is the same controller as the above, excepts this renders the ./shop/index.ejs view.
 const getIndexController = (req, res, next) => {
   Product.getProducts(products => {
     res.render('./shop/index', { products: products, pageTitle: 'Home' });
@@ -29,17 +28,27 @@ const getCheckOutController = (req, res, next) => {
 }
 
 const getCartController = (req, res, next) => {
-  res.render('./shop/cart', { pageTitle: 'Cart' });
+  Cart.getAllProductsFromCart(products => {
+    res.render('./shop/cart', { pageTitle: 'Your cart 2', products: products.fullProducts, totalPrice: products.totalPrice })
+  })
 }
 
 const postCartController = (req, res, next) => {
   const productId = req.body.id;
   Product.getProductById(productId, (product) => {
-    console.log({p: productId, pp: product.price})
-    Cart.addProduct(productId, product.price);
+    Cart.addProduct(productId, product, product.price);
   });
   res.redirect('/cart');
-  
+}
+
+const deleteFromCartController = (req, res, next) => {
+  const id = req.body.id;
+  async function deleteProductFromCart() {
+    await Cart.deleteProductFromCart(id);
+  }
+
+  deleteProductFromCart();
+  res.redirect('/cart');
 }
 
 const getOrdersController = (req, res, next) => {
@@ -52,8 +61,9 @@ module.exports = {
   getAllProductsController, 
   getIndexController, 
   getCheckOutController, 
-  getCartController,
   getOrdersController,
   getProductController,
-  postCartController
+  postCartController,
+  getCartController,
+  deleteFromCartController
 };

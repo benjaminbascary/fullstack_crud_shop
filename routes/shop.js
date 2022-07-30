@@ -6,11 +6,11 @@ const {
   getIndexController, 
   getAllProductsController, 
   getCheckOutController, 
-  getCartController,
   getOrdersController,
   getProductController,
-  // POST Controllers
+  getCartController,
   postCartController,
+  deleteFromCartController
 } = require('../controllers/shop');
 
 router.get('/', getIndexController);
@@ -20,5 +20,6 @@ router.get('/checkout', getCheckOutController);
 router.get('/cart', getCartController);
 router.post('/cart', postCartController);
 router.get('/orders', getOrdersController);
+router.post('/cart/deleteitem', deleteFromCartController)
 
 module.exports = router;
