@@ -28,25 +28,19 @@ const getCheckOutController = (req, res, next) => {
   res.render('./shop/checkout', { pageTitle: 'Checkout' })
 }
 
-const getCartController = (req, res, next) => {
-  Cart.getAllProductsFromCart(products => {
-    res.render('./shop/cart', { pageTitle: 'Your cart', products: products.products, totalPrice: products.totalPrice });
+// const getCartController = (req, res, next) => {
+//   Cart.getAllProductsFromCart(products => {
+//     res.render('./shop/cart', { pageTitle: 'Your cart', products: products.products, totalPrice: products.totalPrice });
+//   })
+
+// }
+
+// This function is named lake this because it is the refactoring from getCartController that is up here commented
+const getFullCartController = (req, res, next) => {
+  Cart.getFullProductsFromCart(products => {
+    console.log(products.products)
+    res.render('./shop/cart', { pageTitle: 'Your cart 2', products: products.fullProducts, totalPrice: products.totalPrice })
   })
-
-}
-
-const getFullCartController = () => {
-  
-}
-
-const postCartController = (req, res, next) => {
-  const productId = req.body.id;
-  
-  Product.getProductById(productId, (product) => {
-    console.log({p: productId, pp: product.price})
-    Cart.addProduct(productId, product.price);
-  });
-  res.redirect('/cart');
 }
 
 const postFullCartController = (req, res, next) => {
@@ -62,6 +56,18 @@ const postFullCartController = (req, res, next) => {
   res.redirect('/cart');
 }
 
+const deleteFromCartController = (req, res, next) => {
+  const id = req.body.id;
+  const price = req.body.price
+  console.log(id);
+  async function deleteProductFromFullCart() {
+    await Cart.deleteProductFromFullCart(id);
+  }
+
+  deleteProductFromFullCart();
+  res.redirect('/cart');
+}
+
 const getOrdersController = (req, res, next) => {
   res.render('./shop/orders', { pageTitle: 'Oders'})
 }
@@ -72,9 +78,9 @@ module.exports = {
   getAllProductsController, 
   getIndexController, 
   getCheckOutController, 
-  getCartController,
   getOrdersController,
   getProductController,
-  postCartController,
-  postFullCartController
+  postFullCartController,
+  getFullCartController,
+  deleteFromCartController
 };

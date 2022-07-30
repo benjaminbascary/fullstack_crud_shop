@@ -6,24 +6,20 @@ const {
   getIndexController, 
   getAllProductsController, 
   getCheckOutController, 
-  getCartController,
   getOrdersController,
   getProductController,
-  // POST Controllers
-  postCartController,
-  postFullCartController
+  getFullCartController,
+  postFullCartController,
+  deleteFromCartController
 } = require('../controllers/shop');
 
 router.get('/', getIndexController);
 router.get('/products', getAllProductsController);
 router.get('/products/:id', getProductController);
 router.get('/checkout', getCheckOutController);
-router.get('/cart', getCartController);
-router.post('/cart', postCartController);
-
-//test route
-router.post('/fullcart', postFullCartController);
-
+router.get('/cart', getFullCartController);
+router.post('/cart', postFullCartController);
 router.get('/orders', getOrdersController);
+router.post('/cart/deleteitem', deleteFromCartController)
 
 module.exports = router;
