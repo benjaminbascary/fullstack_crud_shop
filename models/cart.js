@@ -3,19 +3,8 @@ const path = require('path');
 
 const p = path.join(path.dirname(require.main.filename), 'db', 'cart.json');
 
-const p2 = path.join(path.dirname(require.main.filename), 'db', 'cart2.json');
-
 const fetchAllProductsFromFile = (callback) => {
   fs.readFile(p, (err, fileContent) => {
-    if (err) {
-      return callback([]);
-    }
-    callback(JSON.parse(fileContent));
-  })
-}
-
-const fetchFullProductsFromFile = (callback) => {
-  fs.readFile(p2, (err, fileContent) => {
     if (err) {
       return callback([]);
     }
@@ -54,8 +43,8 @@ class Cart {
     });
   }
 
-  static addFullProduct(id, fullproduct, productPrice) {
-    fs.readFile(p2, (err, fileContent) => {
+  static addProduct(id, fullproduct, productPrice) {
+    fs.readFile(p, (err, fileContent) => {
       let cart = { products: [], fullProducts: [], totalPrice: 0 };
       if (!err) {
         cart = JSON.parse(fileContent);
@@ -84,7 +73,7 @@ class Cart {
         cart.fullProducts = [ ...cart.fullProducts, fullproduct ];
       }
       cart.totalPrice = +cart.totalPrice + +productPrice;
-      fs.writeFile(p2, JSON.stringify(cart), err => {
+      fs.writeFile(p, JSON.stringify(cart), err => {
         console.log(err);
       });
     })
@@ -94,23 +83,18 @@ class Cart {
     fetchAllProductsFromFile(callback);
   }
 
-  static getFullProductsFromCart(callback) {
-    fetchFullProductsFromFile(callback);
-  }
-
-  static async deleteProductFromFullCart(id) {
-    fs.readFile(p2, (err, fileContent) => {
+  static async deleteProductFromCart(id) {
+    fs.readFile(p, (err, fileContent) => {
       if (err) {
         return;
       }
 
       const updatedCart = {...JSON.parse(fileContent)}
-      const product = updatedCart.fullProducts.findIndex(prod => prod.id === id);
       
       updatedCart.fullProducts = updatedCart.fullProducts.filter(
         prod => prod.id !== id
       );
-      fs.writeFile(p2, JSON.stringify(updatedCart), err => {
+      fs.writeFile(p, JSON.stringify(updatedCart), err => {
         console.log(err);
       })
     })

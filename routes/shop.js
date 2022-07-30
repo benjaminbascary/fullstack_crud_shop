@@ -8,8 +8,8 @@ const {
   getCheckOutController, 
   getOrdersController,
   getProductController,
-  getFullCartController,
-  postFullCartController,
+  getCartController,
+  postCartController,
   deleteFromCartController
 } = require('../controllers/shop');
 
@@ -17,8 +17,8 @@ router.get('/', getIndexController);
 router.get('/products', getAllProductsController);
 router.get('/products/:id', getProductController);
 router.get('/checkout', getCheckOutController);
-router.get('/cart', getFullCartController);
-router.post('/cart', postFullCartController);
+router.get('/cart', getCartController);
+router.post('/cart', postCartController);
 router.get('/orders', getOrdersController);
 router.post('/cart/deleteitem', deleteFromCartController)
 
