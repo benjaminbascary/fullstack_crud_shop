@@ -8,8 +8,6 @@ const bodyParser = require('body-parser');
 const { router, products } = require('./routes/admin');
 const shopRoute = require('./routes/shop');
 const notFound = require('./routes/404');
-// MySql Database
-const db = require('./utils/mysql');
 // Instances
 const app = express();
 
@@ -17,6 +15,7 @@ const app = express();
 // Set the view engine
 app.set('view engine', 'ejs');
 app.set('views', 'views');
+
 
 
 // Static files
