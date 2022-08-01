@@ -6,13 +6,17 @@ const getAddProductPageController = (req, res, next) => {
 
 const postNewProductController = (req, res, next) => {
   const { product, price, imageUrl, description } = req.body;
-  const newProduct = new Product(product, price, imageUrl, description);
-  newProduct.saveProduct()
-    .then(() => {
-      res.redirect('/');
-    })
-    .catch((err) => {
-      console.log(err);
+  Product.create({
+    name: product,
+    price: price,
+    imageUrl: imageUrl,
+    description: description
+  }).then((result) => {
+    console.log(result)
+    //res.redirect('/');
+  })
+    .catch((err) =>{
+      console.log(err)
     })
 }
 
