@@ -15,9 +15,9 @@ class Product {
     );
   }
   
-  saveEditedProduct(id) {
+  saveEditedProduct(id, product) {
     return db.execute(
-
+      'UPDATE '
     )
   }
 
@@ -26,7 +26,7 @@ class Product {
   }
   
   static getProductById(id) {
-    return db.execute(`SELECT * FROM products WHERE id = ${id}`);
+    return db.execute('SELECT * FROM products WHERE products.id = ?', [id]);
   }
 
   static deleteProductById(id) {

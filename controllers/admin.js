@@ -28,25 +28,27 @@ const getAdminProducts = (req, res, next) => {
 
 const getEditPageController = (req, res, next) => {
   const id = req.params.id;
-  Product.getProductById(id, product => {
-    if (!product) {
-      res.redirect('/'); // It can be changed later
-    } else {
-      res.render('./admin/editproduct', { pageTitle: req.params.id, product: product });
-    }
-  });
+  Product.getProductById(id)
+    .then(([rows, fieldData]) => {
+      res.render('./admin/editproduct', { product: rows[0], pageTitle: 'Editing' })
+    })
+    .catch((err) => {
+      console.log(err)
+    })
 }
 
-// const postEditProductController = (req, res, next) => {
-//   const product = req.body;
-//   const id = product.id;
-
-//   async function loadEditedProduct() {
-//     await Product.saveEditedProduct(id, product);
-//   }
-//   loadEditedProduct();
-//   res.redirect('/admin/products');
-// }
+const postEditProductController = (req, res, next) => {
+  const product = req.body;
+  const id = product.id;
+  Product.saveEditedProduct(id, product)
+    .then(() => {
+      
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  res.redirect('/admin/products');
+}
 
 const deleteProductController = (req, res, next) => {
   const id = req.params.id;

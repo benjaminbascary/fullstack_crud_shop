@@ -15,7 +15,7 @@ const getIndexController = (req, res, next) => {
 const getAllProductsController = (req, res, next) => {
   Product.getProducts()
   .then(([rows, fieldData]) => {
-    res.render('./shop/productslist', { products: rows, pageTitle: 'All products' });
+    res.render('./shop/productlist', { products: rows, pageTitle: 'All products' });
   })
   .catch((err) => {
     console.log(err);
