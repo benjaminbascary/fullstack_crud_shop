@@ -12,57 +12,64 @@ const postNewProductController = (req, res, next) => {
     imageUrl: imageUrl,
     description: description
   }).then((result) => {
-    console.log(result)
-    //res.redirect('/');
+    res.redirect('/');
   })
     .catch((err) =>{
-      console.log(err)
+      console.log(err);
     })
 }
 
 const getAdminProducts = (req, res, next) => {
-  Product.getProducts()
-  .then(([rows, fieldData]) => {
-    res.render('./admin/products', { products: rows, pageTitle: 'Admin products' });
-  })
-  .catch((err) => {
-    console.log(err);
-  })
+  Product.findAll()
+    .then(products => {
+      res.render('./admin/products', { products: products, pageTitle: 'Admin products' });
+    })
+    .catch(err => {
+      console.log(err);
+    })
 }
 
 const getEditPageController = (req, res, next) => {
-  const id = req.params.id;
-  Product.getProductById(id)
-    .then(([rows, fieldData]) => {
-      res.render('./admin/editproduct', { product: rows[0], pageTitle: 'Editing' })
+  const productId = req.params.id;
+  Product.findByPk(productId)
+    .then(product => {
+      res.render('./admin/editproduct', { product: product, pageTitle: 'Editing' })
     })
-    .catch((err) => {
-      console.log(err)
+    .catch(err => {
+      console.log(err);
     })
 }
 
 const postEditProductController = (req, res, next) => {
-  const product = req.body;
-  const id = product.id;
-  Product.saveEditedProduct(id, product)
-    .then(() => {
-      
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-  res.redirect('/admin/products');
+  const { id, price, name, imageUrl, description } = req.body;
+  Product.update({
+    name: name,
+    price: price,
+    imageUrl: imageUrl,
+    description: description
+  }, {
+    where: { id: id }
+  })
+  .then(() => {
+    res.redirect('/admin/products');
+  })
+  .catch(err => {
+    console.log(err);
+  })
 }
 
 const deleteProductController = (req, res, next) => {
   const id = req.params.id;
-  Product.deleteProductById(id)
+  Product.destroy({
+    where: {
+      id: id
+    }})
     .then(() => {
-      res.redirect('/');
+      res.redirect('/admin/products');
     })
     .catch((err) => {
-      console.log(err)
-    })
+      console.log(err);
+    });
 }
 
 

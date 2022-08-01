@@ -23,12 +23,12 @@ const getAllProductsController = (req, res, next) => {
 
 const getProductController = (req, res, next) => {
   const productId = req.params.id;
-  Product.getProductById(productId)
-    .then(([rows, fieldData]) => {
-      res.render('./shop/productdetails', { product: rows[0], pageTitle: 'Details' });
+  Product.findByPk(productId)
+    .then(product => {
+      res.render('./shop/productdetails', { product: product, pageTitle: 'Details' });
     })
-    .catch((err) => {
-      console.log(err);
+    .catch(err => {
+      console.log(err)
     })
 }
 
