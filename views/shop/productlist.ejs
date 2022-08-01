@@ -20,11 +20,9 @@
                   <button type="submit">Add to cart</button>
                   <input type="hidden" name="id" value="<%= product.id %>">
                 </form>
-                <!-- <form action="/fullcart" method="POST">
-                  <button>Add to full-cart</button>
-                  <input type="hidden" name="fullProduct" value="<%= product %> ">
-                  <input type="hidden" name="id" value="<%= product.id %>">
-                </form> -->
+                <form action="/products/<%= product.id %>">
+                  <button type="submit">Details</button>
+              </form>
               </div>
             </div>
           <% } %> 

@@ -1,20 +1,4 @@
-const fs = require('fs');
-const path = require('path');
-const checkProperties = require('../utils/propertiesChecker');
-
-const myPath = path.join(path.dirname(require.main.filename), 'db', 'products.json');
-
-
-
-const fetchAllProductsFromFile = (callback) => {
-  fs.readFile(myPath, (err, fileContent) => {
-    if (err) {
-      return callback([]);
-    }
-    callback(JSON.parse(fileContent));
-  })
-}
-
+const db = require('../utils/mysql');
 
 class Product {
   constructor(name, price, imageUrl, description) {
@@ -25,69 +9,28 @@ class Product {
   }
 
   saveProduct() {
-    this.id = Math.random().toString();
-    // we pass root directory name, name of the folder, and name of the file
-    fs.readFile(myPath, (err, fileContent) => {
-      let products = [];
-      if (!err) {
-        products = JSON.parse(fileContent);
-      }
-
-      if (checkProperties(this)) {
-        products.push(this);
-        fs.writeFile(myPath, JSON.stringify(products), (err) => {
-          console.log(err);
-      });
-      }
-
-    })
-  }
-
-  static async saveEditedProduct(id, updatedProduct) {
-    fs.readFile(myPath, (err, fileContent) => {
-      let products;
-      if (!err) {
-        products = JSON.parse(fileContent);
-      }
-
-      const targetProductIndex = products.findIndex(prod => prod.id === id);
-      //products[targetProductIndex] = updatedProduct;
-      products[targetProductIndex] = updatedProduct;
-
-      fs.writeFile(myPath, JSON.stringify(products), (err) => {
-          console.log(err);
-      });
-
-    })
-  }
-
-  //static hace que pueda llamar al metodo de la clase sin tener que instanciar un objecto con 'new'
-  static getProducts(callback) {
-    fetchAllProductsFromFile(callback);
+    return db.execute(
+      'INSERT INTO products (name, price, description, imageUrl) VALUES (?, ?, ?, ?)',
+      [this.name, this.price, this.description, this.imageUrl]
+    );
   }
   
-  static getProductById(id, callback) {
-    fetchAllProductsFromFile(products => {
-      const product = products.find(p => p.id === id);
-      callback(product);
-    });
-    
+  saveEditedProduct(id, product) {
+    return db.execute(
+      'UPDATE '
+    )
   }
 
-  static async deleteProductById(id) {
-    fs.readFile(myPath, (err, fileContent) => {
-      let products; //Products that will end in a Products[]
-      if (!err) {
-        products = JSON.parse(fileContent);
-      }
+  static getProducts() {
+    return db.execute('SELECT * FROM products');
+  }
+  
+  static getProductById(id) {
+    return db.execute('SELECT * FROM products WHERE products.id = ?', [id]);
+  }
 
-      const updatedProducts = products.filter(eachProduct => eachProduct.id !== id)
-
-      fs.writeFile(myPath, JSON.stringify(updatedProducts), (err) => {
-          console.log(err);
-      });
-
-    })
+  static deleteProductById(id) {
+    return db.execute(`DELETE FROM products WHERE id = ${id}`);
   }
 
 }

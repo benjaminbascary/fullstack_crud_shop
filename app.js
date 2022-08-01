@@ -1,6 +1,7 @@
 // Core Modules
 const path = require('path');
 // 3rd Party Modules
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 // Local Imports
@@ -11,17 +12,15 @@ const notFound = require('./routes/404');
 const app = express();
 
 
-
-
-
 // Set the view engine
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 
 
+
 // Static files
 app.use(express.static(path.join(__dirname, 'public')));
-
+// Body Parser
 app.use(bodyParser.urlencoded({extended: true}));
 // Routes
 app.use(router);

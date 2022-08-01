@@ -2,29 +2,39 @@ const Product = require('../models/product');
 const Cart = require('../models/cart');
 
 
-
+const getIndexController = (req, res, next) => {
+  Product.getProducts()
+  .then(([rows, fieldData]) => {
+    res.render('./shop/index', { products: rows, pageTitle: 'Home' });
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+}
 
 const getAllProductsController = (req, res, next) => {
-  Product.getProducts(products => {
-    res.render('./shop/productlist', { products: products, pageTitle: 'All products' });
+  Product.getProducts()
+  .then(([rows, fieldData]) => {
+    res.render('./shop/productlist', { products: rows, pageTitle: 'All products' });
+  })
+  .catch((err) => {
+    console.log(err);
   })
 }
 
 const getProductController = (req, res, next) => {
   const productId = req.params.id;
-  Product.getProductById(productId, (product) => {
-    res.render('./shop/productdetails', {product: product, pageTitle: product.name});
-  });
-}
-
-const getIndexController = (req, res, next) => {
-  Product.getProducts(products => {
-    res.render('./shop/index', { products: products, pageTitle: 'Home' });
-  })
+  Product.getProductById(productId)
+    .then(([rows, fieldData]) => {
+      res.render('./shop/productdetails', { product: rows[0], pageTitle: 'Details' });
+    })
+    .catch((err) => {
+      console.log(err);
+    })
 }
 
 const getCheckOutController = (req, res, next) => {
-  res.render('./shop/checkout', { pageTitle: 'Checkout' })
+  res.render('./shop/checkout', { pageTitle: 'Checkout' });
 }
 
 const getCartController = (req, res, next) => {
