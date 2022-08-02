@@ -37,16 +37,24 @@ const getCheckOutController = (req, res, next) => {
 }
 
 const getCartController = (req, res, next) => {
-  Cart.getAllProductsFromCart(products => {
-    res.render('./shop/cart', { pageTitle: 'Your cart 2', products: products.fullProducts, totalPrice: products.totalPrice })
+  req.user.getCart()
+  .then(cart => {
+    return cart.getProducts()
+      .then(products => {
+        res.render('./shop/cart', { pageTitle: 'Your cart', products: products })
+      })
+      .catch(err => {
+        console.log(err)
+      })
   })
+  .catch(err => {
+    console.log(err);
+  });
 }
 
 const postCartController = (req, res, next) => {
   const productId = req.body.id;
-  Product.getProductById(productId, (product) => {
-    Cart.addProduct(productId, product, product.price);
-  });
+  
   res.redirect('/cart');
 }
 

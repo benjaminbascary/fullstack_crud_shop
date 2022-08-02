@@ -13,7 +13,6 @@
             <img src="<%= product.imageUrl %>" alt="<%= product.name %> ">
               <h3><%= product.name %></h3>
               <p>$ <%= product.price %></p>
-              <!-- <p>Qty: <%= product.qty %> </p> -->
               <p>SKU: <%= product.id %></p>
               <form action="./cart/deleteitem" method="POST">
                 <input type="hidden" name="id" value="<%= product.id %>">
@@ -21,18 +20,18 @@
                 <button class="button" type="submit">DELETE ITEM</button>
               </form>
             </div>
+            
           <% } %>
-          
-          <!-- <h1>Total $ <%= totalPrice %> </h1> -->
-      <% } else { %>
-        <div class="products--container">
-          <h2>No products in database</h2>
-        </div>
-      <% } %>   
+          <button>
+            <a href="./checkout">Confirm and checkout!</a>
+          </button>
+          <% } else { %>
+            <div class="products--container">
+              <h2>No products in database</h2>
+            </div>
+          <% } %>   
     </div>
-    <button>
-      <a href="./checkout">Confirm and checkout!</a>
-    </button>
+    
   </main>
 </body>
 </html>
