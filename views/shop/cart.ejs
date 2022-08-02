@@ -13,6 +13,7 @@
             <img src="<%= product.imageUrl %>" alt="<%= product.name %> ">
               <h3><%= product.name %></h3>
               <p>$ <%= product.price %></p>
+              <p>Qty: <%= product.cartItem.quantity %> </p>
               <p>SKU: <%= product.id %></p>
               <form action="./cart/deleteitem" method="POST">
                 <input type="hidden" name="id" value="<%= product.id %>">

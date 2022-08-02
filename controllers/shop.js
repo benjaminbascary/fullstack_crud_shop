@@ -38,18 +38,20 @@ const getCheckOutController = (req, res, next) => {
 
 const getCartController = (req, res, next) => {
   req.user.getCart()
-  .then(cart => {
-    return cart.getProducts()
-      .then(products => {
-        res.render('./shop/cart', { pageTitle: 'Your cart', products: products })
-      })
-      .catch(err => {
-        console.log(err)
-      })
-  })
-  .catch(err => {
-    console.log(err);
-  });
+    .then(cart => {
+      return cart.getProducts()
+        .then(products => {
+          console.log("Here is the CART:")
+          console.log(products)
+          res.render('./shop/cart', { pageTitle: 'Your cart', products: products })
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    })
+    .catch(err => {
+      console.log(err);
+    });
 }
 
 const postCartController = (req, res, next) => {
@@ -67,7 +69,9 @@ const postCartController = (req, res, next) => {
       }
       let newQuantity = 1;
       if (product) {
-        // ..
+        const oldQuantity = product.cartItem.quantity;
+        newQuantity = oldQuantity + 1;
+        return fetchedCart.addProduct(product, {through: {quantity: newQuantity}})
       }
       return Product.findByPk(productId)
         .then(product => {
@@ -86,12 +90,20 @@ const postCartController = (req, res, next) => {
 
 const deleteFromCartController = (req, res, next) => {
   const id = req.body.id;
-  async function deleteProductFromCart() {
-    await Cart.deleteProductFromCart(id);
-  }
-
-  deleteProductFromCart();
-  res.redirect('/cart');
+  req.user.getCart()
+  .then(cart => {
+    return cart.getProducts({where: {id: id}})
+  })
+  .then((products => {
+    const product = products[0];
+    product.cartItem.destroy();
+  }))
+  .then(result => {
+    res.redirect('/cart');
+  })
+  .catch(err => {
+    console.log(err);
+  })
 }
 
 const getOrdersController = (req, res, next) => {
