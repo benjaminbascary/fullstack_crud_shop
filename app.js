@@ -62,7 +62,6 @@ sequelize.sync(/*{force: true}*/)
     return User.findByPk(1)
   })
   .then(user => {
-    
     if (!user) {
       return User.create({name: 'Benjamin', email: 'test@test.com'})
     }
