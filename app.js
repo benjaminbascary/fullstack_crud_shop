@@ -15,7 +15,8 @@ const sequelize = require('./utils/mysql');
 // Sequelize models
 const Product = require('./models/product');
 const User = require('./models/user');
-const { isErrored } = require('stream');
+const Cart = require('./models/cart');
+const CartItem = require('./models/cart-item');
 
 
 
@@ -48,14 +49,14 @@ app.use(notFound);
 
 // Initialices data base and relations
 
-Product.belongsTo(User, {
-  constraints: true, 
-  onDelete: 'CASCADE'
-});
-
+Product.belongsTo(User, {constraints: true, onDelete: 'CASCADE'});
 User.hasMany(Product);
+User.hasOne(Cart);
+Cart.belongsTo(User);
+Cart.belongsToMany(Product, {through: CartItem});
+Product.belongsToMany(Cart, {through: CartItem});
 
-sequelize.sync(/*{force: true}*/)
+sequelize.sync({force: true})
   .then((result) => {
     // We create a dummy user
     return User.findByPk(1)
