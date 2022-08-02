@@ -62,15 +62,21 @@ sequelize.sync(/*{force: true}*/)
     return User.findByPk(1)
   })
   .then(user => {
+    
     if (!user) {
       return User.create({name: 'Benjamin', email: 'test@test.com'})
     }
     return user;
   })
   .then(user => {
+    if (user.id === 1) {
+      return user;
+    }
     return user.createCart();
+    
   })
-  .then(() => {
+  .then((cart) => {
+    console.log(cart)
     app.listen(3000)
   })
   .catch((err) => {
