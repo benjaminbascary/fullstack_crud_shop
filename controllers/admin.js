@@ -6,17 +6,18 @@ const getAddProductPageController = (req, res, next) => {
 
 const postNewProductController = (req, res, next) => {
   const { product, price, imageUrl, description } = req.body;
-  Product.create({
+  req.user.createProduct({
     name: product,
     price: price,
     imageUrl: imageUrl,
     description: description
-  }).then((result) => {
+  })
+  .then((result) => {
     res.redirect('/');
   })
-    .catch((err) =>{
-      console.log(err);
-    })
+  .catch((err) =>{
+    console.log(err);
+  })
 }
 
 const getAdminProducts = (req, res, next) => {
