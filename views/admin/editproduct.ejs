@@ -5,7 +5,7 @@
     <%- include('../partials/navigation.ejs') %> 
   </header>
   <main class="main-container">
-    <h1 class="title add-product">Edit product</h1>
+    <h1 class="title add-product"><%= pageTitle %> </h1>
     <form action="/admin/editproduct" method="POST">
       <div class="form-control">
         <label for="product">Product</label>
@@ -25,7 +25,7 @@
           <%= product.description %> 
         </textarea>
       </div>
-      <input type="hidden" value="<%= product.id %>" name="id">
+      <input type="hidden" value="<%= product._id %>" name="_id">
       <button type="submit">EDIT</button>
     </form>
   </main>

@@ -30,14 +30,16 @@ const getAdminProducts = (req, res, next) => {
     .catch(err => {
       console.log(err);
     })
-  
 }
 
 const getEditPageController = (req, res, next) => {
   const productId = req.params.id;
-  Product.findByPk(productId)
+  Product.findById(productId)
     .then(product => {
-      res.render('./admin/editproduct', { product: product, pageTitle: 'Editing' })
+      if (!product) {
+        return res.redirect('/');
+      }
+      res.render('./admin/editproduct', { product: product, pageTitle: `Editing: ${product.name}` })
     })
     .catch(err => {
       console.log(err);
@@ -45,35 +47,33 @@ const getEditPageController = (req, res, next) => {
 }
 
 const postEditProductController = (req, res, next) => {
-  const { id, price, name, imageUrl, description } = req.body;
-  Product.update({
-    name: name,
-    price: price,
-    imageUrl: imageUrl,
-    description: description
-  }, {
-    where: { id: id }
-  })
-  .then(() => {
-    res.redirect('/admin/products');
-  })
-  .catch(err => {
-    console.log(err);
-  })
+  const { _id, price, name, imageUrl, description } = req.body;
+  Product.findById(_id)
+    .then(product => {
+      product.name = name;
+      product.imageUrl = imageUrl;
+      product.price = price;
+      product.description = description;
+      product.save();
+    })
+    .then(result => {
+      res.redirect('/admin/products');
+    })
+    .catch(err => {
+      console.log(err);
+    })
+  
 }
 
 const deleteProductController = (req, res, next) => {
   const id = req.params.id;
-  Product.destroy({
-    where: {
-      id: id
-    }})
-    .then(() => {
+  Product.findByIdAndDelete(id)
+    .then(result => {
       res.redirect('/admin/products');
     })
-    .catch((err) => {
+    .catch(err => {
       console.log(err);
-    });
+    })
 }
 
 
