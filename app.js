@@ -10,8 +10,11 @@ const shopRoute = require('./routes/shop');
 const notFound = require('./routes/404');
 // Instances
 const app = express();
-// mongodb
-const mongoConnect = require('./utils/mongodb');
+// mongoose
+const mongoose = require('mongoose');
+const URL = require('./utils/mongodb');
+
+
 
 // Set the view engine
 app.set('view engine', 'ejs');
@@ -29,5 +32,11 @@ app.use(shopRoute);
 app.use(notFound);
 
 // Starts server
-mongoConnect();
-app.listen(3000)
+mongoose.connect(URL)
+  .then(result => {
+    console.log('CONNECTED');
+    app.listen(3000);
+  })
+  .catch(err => {
+    console.log(err);
+  });

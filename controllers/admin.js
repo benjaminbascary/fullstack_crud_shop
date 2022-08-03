@@ -6,28 +6,31 @@ const getAddProductPageController = (req, res, next) => {
 
 const postNewProductController = (req, res, next) => {
   const { product, price, imageUrl, description } = req.body;
-  req.user.createProduct({
+  const newProduct = new Product({
     name: product,
     price: price,
     imageUrl: imageUrl,
     description: description
-  })
-  .then((result) => {
-    res.redirect('/');
-  })
-  .catch((err) =>{
-    console.log(err);
-  })
+  });
+
+  newProduct.save()
+    .then(result => {
+      res.redirect('/')
+    })
+    .catch(err => {
+      console.log(err);
+    })
 }
 
 const getAdminProducts = (req, res, next) => {
-  Product.findAll()
+  Product.find()
     .then(products => {
       res.render('./admin/products', { products: products, pageTitle: 'Admin products' });
     })
     .catch(err => {
       console.log(err);
     })
+  
 }
 
 const getEditPageController = (req, res, next) => {

@@ -3,18 +3,19 @@ const Cart = require('../models/cart');
 
 
 const getIndexController = (req, res, next) => {
-  Product.findAll()
+  Product.find()
     .then(products => {
       res.render('./shop/index', { products: products, pageTitle: 'Home' });
-    }).catch(err => {
-      console.log(err)
-    });
+    })
+    .catch(err => {
+      console.log(err);
+    })
 }
 
 const getAllProductsController = (req, res, next) => {
-  Product.findAll()
+  Product.find()
     .then(products => {
-      res.render('./shop/productlist', { products: products, pageTitle: 'All products' });
+      res.render('./shop/productlist', { products: products, pageTitle: 'Products' });
     })
     .catch(err => {
       console.log(err);
@@ -23,13 +24,8 @@ const getAllProductsController = (req, res, next) => {
 
 const getProductController = (req, res, next) => {
   const productId = req.params.id;
-  Product.findByPk(productId)
-    .then(product => {
-      res.render('./shop/productdetails', { product: product, pageTitle: 'Details' });
-    })
-    .catch(err => {
-      console.log(err)
-    })
+  res.render('./shop/productdetails', { product: product, pageTitle: 'Details' });
+    
 }
 
 const getCheckOutController = (req, res, next) => {
