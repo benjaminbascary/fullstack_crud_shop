@@ -1,47 +1,29 @@
-const fs = require('fs');
-const path = require('path');
+const { default: mongoose } = require("mongoose");
 
+const Schema = mongoose.Schema;
 
-const myPath = path.join(path.dirname(require.main.filename), 'db', 'products.json');
-
-
-
-
-const fetchAllProductsFromFile = (callback) => {
-  fs.readFile(myPath, (err, fileContent) => {
-    if (err) {
-      return callback([]);
-    }
-    callback(JSON.parse(fileContent));
-  })
-}
-
-
-class Product {
-  constructor(name, price) {
-    this.name = name;
-    this.price = price;
+const productSchema = new Schema({
+  name: {
+    type: String,
+    required: true
+  },
+  price: {
+    type: Number,
+    required: true
+  },
+  imageUrl: {
+    type: String,
+    required: true
+  },
+  description: {
+    type: String,
+    required: true
+  },
+  userId: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
   }
+});
 
-  saveProduct() {
-    // we pass root directory name, name of the folder, and name of the file
-    fs.readFile(myPath, (err, fileContent) => {
-      let products = [];
-      if (!err) {
-        products = JSON.parse(fileContent);
-      }
-      products.push(this);
-      fs.writeFile(myPath, JSON.stringify(products), (err) => {
-        console.log(err);
-      });
-    })
-  }
-
-  //static hace que pueda llamar al metodo de la clase sin tener que instanciar un objecto con 'new'
-  static getProducts(callback) {
-    fetchAllProductsFromFile(callback);
-  }
-
-}
-
-module.exports = Product;
+module.exports = mongoose.model('Product', productSchema);

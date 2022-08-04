@@ -1,12 +1,25 @@
 const express = require('express');
 const router = express.Router();
 
-const { getAllProductsController } = require('../controllers/products');
-const getCartController = require('../controllers/cart');
-const getCheckOutController = require('../controllers/checkout');
+const { 
+  // GET controllers
+  getIndexController, 
+  getAllProductsController, 
+  getCheckOutController, 
+  /**getOrdersController, */
+  getProductController,
+  getCartController,
+  postCartController,
+  deleteFromCartController
+} = require('../controllers/shop');
 
-router.get('/', getAllProductsController);
-router.get('/cart', getCartController);
+router.get('/', getIndexController);
+router.get('/products', getAllProductsController);
+router.get('/products/:id', getProductController);
 router.get('/checkout', getCheckOutController);
+router.get('/cart', getCartController);
+router.post('/cart', postCartController);
+router.get('/orders', /** getOrdersController*/);
+router.post('/cart/deleteitem', deleteFromCartController)
 
 module.exports = router;

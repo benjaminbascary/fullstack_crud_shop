@@ -30,6 +30,17 @@
             <div class="single--product--container">
               <p>Title: <%= product.name %></p>
               <p>Price: <%= product.price %> </p>
+              <p>ID: <%= product._id %> </p>
+              <div>
+                <a href="/products/<%= product.id %>">Details</a>
+                <form action="/cart" method="POST">
+                  <button type="submit">Add to cart</button>
+                  <input type="hidden" name="id" value="<%= product._id %>">
+                </form>
+                <form action="/products/<%= product.id %>">
+                  <button type="submit">Details</button>
+              </form>
+              </div>
             </div>
           <% } %> 
       <% } else { %>

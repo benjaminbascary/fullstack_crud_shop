@@ -24,9 +24,33 @@
   </header>
   <main class="main container">
     <h1 class="title">Cart</h1>
-    <button>
-      <a href="./checkout">Confirm and checkout!</a>
-    </button>
+    <div class="products--container">
+      <% if (products.length > 0) { %>
+          <% for (let product of products) { %>
+            <div class="cart--single--product--container">
+            <img src="<%= product.imageUrl %>" alt="<%= product.name %> ">
+              <h3><%= product.name %></h3>
+              <p>$ <%= product.price %></p>
+              <p>Qty: <%= product.cartItem.quantity %> </p>
+              <p>SKU: <%= product.id %></p>
+              <form action="./cart/deleteitem" method="POST">
+                <input type="hidden" name="id" value="<%= product.id %>">
+                <input type="hidden" name="price" value="<%= product.price %> ">
+                <button class="button" type="submit">DELETE ITEM</button>
+              </form>
+            </div>
+            
+          <% } %>
+          <button>
+            <a href="./checkout">Confirm and checkout!</a>
+          </button>
+          <% } else { %>
+            <div class="products--container">
+              <h2>No products in database</h2>
+            </div>
+          <% } %>   
+    </div>
+    
   </main>
 </body>
 </html>
