@@ -1,24 +1,33 @@
 const Product = require('../models/product');
-
+const User = require('../models/user');
 const getAddProductPageController = (req, res, next) => {
   res.render('./admin/addproduct', { pageTitle: 'Add Productt' });
 }
 
 const postNewProductController = (req, res, next) => {
   const { product, price, imageUrl, description } = req.body;
-  const newProduct = new Product({
-    name: product,
-    price: price,
-    imageUrl: imageUrl,
-    description: description
-  });
+  let myUser;
+  User.findById('62eac59a8cfc6fb1a72024c3')
+    .then(user => {
+      myUser = user
+      const newProduct = new Product({
+        name: product,
+        price: price,
+        imageUrl: imageUrl,
+        description: description,
+        userId: myUser._id
+      });
 
-  newProduct.save()
-    .then(result => {
-      res.redirect('/')
-    })
+      newProduct.save()
+        .then(result => {
+          res.redirect('/')
+        })
+        .catch(err => {
+          console.log(err);
+        })
+      })
     .catch(err => {
-      console.log(err);
+      console.log(err)
     })
 }
 

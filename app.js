@@ -36,6 +36,7 @@ app.use(notFound);
 app.use((req, res, next) => {
   User.findById('62eab94a610040048d0a78d4')
     .then(user => {
+      console.log(user)
       req.user = user;
       next();
     })
