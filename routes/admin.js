@@ -12,9 +12,8 @@ const {
 } = require('../controllers/admin');
 
 
-// Add Product => GET
 router.get('/admin/addproduct', getAddProductPageController);
-// Add Product => POST (post new product)
+
 router.post('/admin/addproduct', postNewProductController);
 // Admin products page => GET
 router.get('/admin/products', getAdminProducts);

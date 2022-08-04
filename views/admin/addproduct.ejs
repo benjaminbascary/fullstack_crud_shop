@@ -2,28 +2,32 @@
 
 <body>
   <header class="header--container">
-    <%- include('../partials/navigation.ejs') %> 
+    <nav>
+      <ul class="header--nav--list">
+        <li>
+          <a href="/">Home</a>
+        </li>
+        <li>
+          <a href="/products">Products</a>
+        </li>
+        <li>
+          <a href="/cart">Cart</a>
+        </li>
+        <li>
+          <a href="/admin/addproduct">Admin - Add a new product</a>
+        </li>
+        <li>
+          <a href="/admin/product-list">Admin - Product List</a>
+        </li>
+      </ul>
+    </nav>
   </header>
-  <main class="main-container">
+  <main class="main container">
     <h1 class="title add-product">Add a new item to the shop!</h1>
     <form action="/admin/addproduct" method="POST">
-      <div class="form-control">
-        <label for="product">Product</label>
-        <input type="text" name="product" placeholder="Product's name...">
-      </div>
-      <div class="form-control">
-        <label for="price">Price</label>
-        <input type="number" name="price" placeholder="$" step="0.01">
-      </div>
-      <div>
-        <label for="imageUrl">Image URL</label>
-        <input type="text" name="imageUrl" placeholder="URL">
-      </div>
-      <div>
-        <label for="description">Description</label>
-        <textarea rows="5" type="text" name="description" placeholder="Description"></textarea>
-      </div>
-      <button type="submit">Add</button>
+      <input type="text" name="product" placeholder="Product's name...">
+      <input type="number" name="price" placeholder="$">
+      <button type="submit">Add!</button>
     </form>
   </main>
   
