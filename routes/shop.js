@@ -6,7 +6,7 @@ const {
   getIndexController, 
   getAllProductsController, 
   getCheckOutController, 
-  getOrdersController,
+  /**getOrdersController, */
   getProductController,
   getCartController,
   postCartController,
@@ -19,7 +19,7 @@ router.get('/products/:id', getProductController);
 router.get('/checkout', getCheckOutController);
 router.get('/cart', getCartController);
 router.post('/cart', postCartController);
-router.get('/orders', getOrdersController);
+router.get('/orders', /** getOrdersController*/);
 router.post('/cart/deleteitem', deleteFromCartController)
 
 module.exports = router;

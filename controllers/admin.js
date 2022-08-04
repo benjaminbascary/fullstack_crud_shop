@@ -1,27 +1,38 @@
 const Product = require('../models/product');
-
+const User = require('../models/user');
 const getAddProductPageController = (req, res, next) => {
   res.render('./admin/addproduct', { pageTitle: 'Add Productt' });
 }
 
 const postNewProductController = (req, res, next) => {
   const { product, price, imageUrl, description } = req.body;
-  req.user.createProduct({
-    name: product,
-    price: price,
-    imageUrl: imageUrl,
-    description: description
-  })
-  .then((result) => {
-    res.redirect('/');
-  })
-  .catch((err) =>{
-    console.log(err);
-  })
+  let myUser;
+  User.findById('62eac59a8cfc6fb1a72024c3')
+    .then(user => {
+      myUser = user
+      const newProduct = new Product({
+        name: product,
+        price: price,
+        imageUrl: imageUrl,
+        description: description,
+        userId: myUser._id
+      });
+
+      newProduct.save()
+        .then(result => {
+          res.redirect('/')
+        })
+        .catch(err => {
+          console.log(err);
+        })
+      })
+    .catch(err => {
+      console.log(err)
+    })
 }
 
 const getAdminProducts = (req, res, next) => {
-  Product.findAll()
+  Product.find()
     .then(products => {
       res.render('./admin/products', { products: products, pageTitle: 'Admin products' });
     })
@@ -32,9 +43,12 @@ const getAdminProducts = (req, res, next) => {
 
 const getEditPageController = (req, res, next) => {
   const productId = req.params.id;
-  Product.findByPk(productId)
+  Product.findById(productId)
     .then(product => {
-      res.render('./admin/editproduct', { product: product, pageTitle: 'Editing' })
+      if (!product) {
+        return res.redirect('/');
+      }
+      res.render('./admin/editproduct', { product: product, pageTitle: `Editing: ${product.name}` })
     })
     .catch(err => {
       console.log(err);
@@ -42,35 +56,33 @@ const getEditPageController = (req, res, next) => {
 }
 
 const postEditProductController = (req, res, next) => {
-  const { id, price, name, imageUrl, description } = req.body;
-  Product.update({
-    name: name,
-    price: price,
-    imageUrl: imageUrl,
-    description: description
-  }, {
-    where: { id: id }
-  })
-  .then(() => {
-    res.redirect('/admin/products');
-  })
-  .catch(err => {
-    console.log(err);
-  })
+  const { _id, price, name, imageUrl, description } = req.body;
+  Product.findById(_id)
+    .then(product => {
+      product.name = name;
+      product.imageUrl = imageUrl;
+      product.price = price;
+      product.description = description;
+      product.save();
+    })
+    .then(result => {
+      res.redirect('/admin/products');
+    })
+    .catch(err => {
+      console.log(err);
+    })
+  
 }
 
 const deleteProductController = (req, res, next) => {
   const id = req.params.id;
-  Product.destroy({
-    where: {
-      id: id
-    }})
-    .then(() => {
+  Product.findByIdAndDelete(id)
+    .then(result => {
       res.redirect('/admin/products');
     })
-    .catch((err) => {
+    .catch(err => {
       console.log(err);
-    });
+    })
 }
 
 

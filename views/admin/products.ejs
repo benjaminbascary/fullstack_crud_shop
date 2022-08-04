@@ -13,11 +13,12 @@
               <p><%= product.name %></p>
               <p>Description: <%= product.description %> </p>
               <p>Price: <%= product.price %> </p>
+              <p>ID: <%= product._id %> </p>
               <div class="buttons-container">
                 <button>
-                  <a href="/admin/editproduct/<%= product.id %> ">Edit</a>
+                  <a href="/admin/editproduct/<%= product._id %> ">Edit</a>
                 </button>
-                <form action="/admin/deleteproduct/<%= product.id %>" method="POST">
+                <form action="/admin/deleteproduct/<%= product._id %>" method="POST">
                   <button type="submit">Delete</button>
                 </form>
               </div>
